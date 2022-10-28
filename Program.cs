@@ -1,65 +1,52 @@
 ﻿using System;
 
-namespace BankAccountNS
+
+namespace TriagT
 {
+    public enum TriangleType
+    {
+        Equilateral,
+        Isosceles,
+        Versatile,
+        NotExist
+    }
     /// <summary>
     /// Bank account demo class.
     /// </summary>
-    public class BankAccount
+    public class Triangle
     {
-        private readonly string m_customerName;
-        private double m_balance;
+        private int t_a;
+        private int t_b;
+        private int t_c;
 
-        private BankAccount() { }
+        private Triangle() { }
 
-        public BankAccount(string customerName, double balance)
+        public Triangle(int a,int b,int c)
         {
-            m_customerName = customerName;
-            m_balance = balance;
+            t_a = a;
+            t_b = b;
+            t_c = c;
         }
 
-        public string CustomerName
+       
+        public TriangleType TrianglEx(int a,int b,int c)
         {
-            get { return m_customerName; }
+            if (a + b <= c || a + c <= b || b + c <= a)
+                return TriangleType.NotExist;
+            else if (a == b && b == c)
+                return TriangleType.Equilateral;
+            else if (a == b || a == c || b == c)
+                return TriangleType.Isosceles;
+            else
+                return TriangleType.Versatile;
         }
 
-        public double Balance
-        {
-            get { return m_balance; }
-        }
-
-        public void Debit(double amount)
-        {
-            if (amount > m_balance)
-            {
-                throw new ArgumentOutOfRangeException("amount");
-            }
-
-            if (amount < 0)
-            {
-                throw new ArgumentOutOfRangeException("amount");
-            }
-
-            m_balance -= amount; // intentionally incorrect code
-        }
-
-        public void Credit(double amount)
-        {
-            if (amount < 0)
-            {
-                throw new ArgumentOutOfRangeException("amount");
-            }
-
-            m_balance += amount;
-        }
+        
 
         public static void Main()
         {
-            BankAccount ba = new BankAccount("Mr. Bryan Walton", 11.99);
-
-            ba.Credit(5.77);
-            ba.Debit(11.22);
-            Console.WriteLine("Current balance is ${0}", ba.Balance);
+            Triangle tr = new Triangle(2, 3, 2);
+            Console.WriteLine("Создан треугольник");
         }
     }
 }
